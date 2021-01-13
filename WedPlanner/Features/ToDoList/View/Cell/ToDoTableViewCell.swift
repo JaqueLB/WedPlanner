@@ -54,10 +54,3 @@ class ToDoTableViewCell: UITableViewCell {
         ])
     }
 }
-
-extension UITableViewCell {
-    // o nome da cell como identificador, para cada cell
-    class var reuseIdentifier: String {
-        return String(describing: self)
-    }
-}
