@@ -14,6 +14,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // Changes nav bar items for the whole system!
+        UINavigationBar.appearance().isTranslucent = true
+        UINavigationBar.appearance().prefersLargeTitles = true
+        UINavigationBar.appearance().barTintColor = .systemBackground
+        UINavigationBar.appearance().tintColor = .systemTeal
+
+//        let navFont = UIFont(name: "AvenirNextCondensed-DemiBold", size: 18)!
+        let fontAttributes = [
+//            NSAttributedString.Key.font : navFont,
+            NSAttributedString.Key.foregroundColor : UIColor.systemTeal
+        ]
+
+        UINavigationBar.appearance().largeTitleTextAttributes = fontAttributes
+        UINavigationBar.appearance().titleTextAttributes = fontAttributes
+//        UIBarButtonItem.appearance().setTitleTextAttributes(fontAttributes, for: .normal)
+
         return true
     }
 
