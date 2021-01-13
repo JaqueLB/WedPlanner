@@ -8,13 +8,13 @@
 import UIKit
 
 class ToDoTableViewCell: UITableViewCell {
-    var itemTitle: UILabel = {
+    private lazy var itemTitle: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.systemBlue
         return label
     }()
 
-    var itemStatus: UIButton = {
+    private lazy var itemStatus: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "square"), for: .normal)
         return button
@@ -25,7 +25,6 @@ class ToDoTableViewCell: UITableViewCell {
         setupUi()
     }
 
-    // for storyboard
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

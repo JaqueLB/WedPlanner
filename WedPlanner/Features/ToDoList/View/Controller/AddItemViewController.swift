@@ -30,6 +30,7 @@ class AddItemViewController: UIViewController {
         setupUi()
     }
 
+    // MARK: setup UI
     func setupSaveBarButton(enabled: Bool = false, style: UIBarButtonItem.Style = .plain) {
         saveBarButton.isEnabled = enabled
         saveBarButton.style = style
@@ -58,6 +59,7 @@ class AddItemViewController: UIViewController {
         ])
     }
 
+    // MARK: target methods, event-driven methods
     @objc func editingChanged(_ textField: UITextField) {
         if textField.text?.count == 1 {
             if textField.text?.first == " " {

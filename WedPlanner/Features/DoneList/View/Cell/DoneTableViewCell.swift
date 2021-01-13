@@ -8,18 +8,12 @@
 import UIKit
 
 class DoneTableViewCell: UITableViewCell {
-    private var completedNameLabel: UILabel = {
+    private lazy var completedNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .systemGray6
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
-    func setupCompletedNameLabel(with text: String) {
-        let attributes = [NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single]
-        let attributedText = NSAttributedString(string: text, attributes: attributes)
-        completedNameLabel.attributedText = attributedText
-    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -32,6 +26,13 @@ class DoneTableViewCell: UITableViewCell {
 
     func populate(_ listItem: ListItem) {
         setupCompletedNameLabel(with: listItem.title)
+    }
+
+    // MARK: setup UI
+    func setupCompletedNameLabel(with text: String) {
+        let attributes = [NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single]
+        let attributedText = NSAttributedString(string: text, attributes: attributes)
+        completedNameLabel.attributedText = attributedText
     }
 
     func setupUi() {

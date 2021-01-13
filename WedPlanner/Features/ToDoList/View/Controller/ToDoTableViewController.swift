@@ -8,28 +8,17 @@
 import UIKit
 
 class ToDoTableViewController: UITableViewController {
-    private var viewModel = ToDoViewModel()
+    private lazy var viewModel = ToDoViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        setupUi()
         setupNavigation()
-
-        viewModel.refreshData = {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-
-        tableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.reuseIdentifier)
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        setupViewModel()
+        setupTableView()
     }
 
+    // MARK: setup UI
     func setupNavigation() {
         navigationItem.title = "To Do"
         let addItemButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addItemButtonTapped))
@@ -41,12 +30,29 @@ class ToDoTableViewController: UITableViewController {
 //        self.navigationController?.hidesBarsOnSwipe = true
     }
 
+    func setupUi() {
+        view.backgroundColor = .systemBackground
+    }
+
+    func setupViewModel() {
+        viewModel.refreshData = {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+
+    // MARK: target methods, event-driven methods
     @objc func addItemButtonTapped() {
         let controller = UINavigationController(rootViewController: AddItemViewController())
         present(controller, animated: true, completion: nil)
     }
 
     // MARK: - Table view data source
+    func setupTableView() {
+        tableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.reuseIdentifier)
+    }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
