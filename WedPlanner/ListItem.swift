@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct ListItem {
-    let index: UUID
-    let title: String
-    let price: Double?
-    let seller: String?
-    let status: Bool
+struct ListItem: Codable {
+    var id = UUID()
+    var title: String
+    var price: Double?
+    var seller: String?
+    var isComplete = false
 }

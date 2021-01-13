@@ -9,10 +9,19 @@ import UIKit
 
 class ToDoTableViewController: UITableViewController {
     private var viewModel = ToDoViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setupNavigation()
+
+        viewModel.refreshData = {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+
+        tableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.reuseIdentifier)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -33,7 +42,8 @@ class ToDoTableViewController: UITableViewController {
     }
 
     @objc func addItemButtonTapped() {
-        present(AddItemViewController(), animated: true, completion: nil)
+        let controller = UINavigationController(rootViewController: AddItemViewController())
+        present(controller, animated: true, completion: nil)
     }
 
     // MARK: - Table view data source
@@ -51,6 +61,9 @@ class ToDoTableViewController: UITableViewController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelectRow(at: indexPath)
+    }
 
     /*
     // Override to support conditional editing of the table view.
