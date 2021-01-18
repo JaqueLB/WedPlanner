@@ -19,8 +19,8 @@ class ToDoViewModel {
     func populate() {
         do {
             var list = [ListItem]()
-            let storedObjItem = UserDefaults.standard.object(forKey: "list")
-            let storedItems = try JSONDecoder().decode([ListItem].self, from: storedObjItem as! Data)
+            guard let storedObjItem = UserDefaults.standard.object(forKey: "list") as? Data else {return}
+            let storedItems = try JSONDecoder().decode([ListItem].self, from: storedObjItem)
             storedItems.forEach({ item in
                 if !item.isComplete {
                     list.append(item)
