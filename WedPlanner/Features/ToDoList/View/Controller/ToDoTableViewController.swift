@@ -16,6 +16,7 @@ class ToDoTableViewController: UITableViewController {
         setupNavigation()
         setupViewModel()
         setupTableView()
+        NotificationCenter.default.addObserver(self, selector: #selector(newItem(notification:)), name: NSNotification.Name(rawValue: "NewItem"), object: nil)
     }
 
     // MARK: setup UI
@@ -46,6 +47,11 @@ class ToDoTableViewController: UITableViewController {
     @objc func addItemButtonTapped() {
         let controller = UINavigationController(rootViewController: AddItemViewController())
         present(controller, animated: true, completion: nil)
+    }
+
+    @objc func newItem(notification: Notification) {
+        viewModel.populate()
+        viewModel.refreshData?()
     }
 
     // MARK: - Table view data source

@@ -58,5 +58,6 @@ class ToDoViewModel {
             UserDefaults.standard.set(encoded, forKey: "list")
         }
         refreshData?()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NewItem"), object: self)
     }
 }
