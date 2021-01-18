@@ -8,7 +8,7 @@
 import UIKit
 
 class DoneTableViewController: UITableViewController {
-    private var viewModel = DoneViewModel()
+    private lazy var viewModel = DoneViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()

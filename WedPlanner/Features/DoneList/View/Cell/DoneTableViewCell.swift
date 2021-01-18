@@ -10,7 +10,7 @@ import UIKit
 class DoneTableViewCell: UITableViewCell {
     private lazy var completedNameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .systemGray6
+        label.textColor = .systemGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -30,13 +30,16 @@ class DoneTableViewCell: UITableViewCell {
 
     // MARK: setup UI
     func setupCompletedNameLabel(with text: String) {
-        let attributes = [NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single]
+        let attributes = [NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue]
         let attributedText = NSAttributedString(string: text, attributes: attributes)
         completedNameLabel.attributedText = attributedText
+        completedNameLabel.text = text
     }
 
     func setupUi() {
         addSubview(completedNameLabel)
+
+        completedNameLabel.autoresizesSubviews = true
 
         NSLayoutConstraint.activate([
             completedNameLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
