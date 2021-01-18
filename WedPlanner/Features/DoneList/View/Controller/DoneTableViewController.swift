@@ -16,6 +16,7 @@ class DoneTableViewController: UITableViewController {
         setupNavigation()
         setupTableView()
         setupViewModel()
+        NotificationCenter.default.addObserver(self, selector: #selector(newDoneItem(notification:)), name: NSNotification.Name(rawValue: "NewDoneItem"), object: nil)
     }
 
     // MARK: setup UI
@@ -35,6 +36,12 @@ class DoneTableViewController: UITableViewController {
         }
     }
 
+    // MARK: target methods, event-driven methods
+    @objc func newDoneItem(notification: Notification) {
+        viewModel.populate()
+        viewModel.refreshData?()
+    }
+
     // MARK: - Table view data source
     func setupTableView() {
         tableView.register(DoneTableViewCell.self, forCellReuseIdentifier: DoneTableViewCell.reuseIdentifier)
@@ -52,5 +59,9 @@ class DoneTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: DoneTableViewCell.reuseIdentifier, for: indexPath) as! DoneTableViewCell
         cell.populate(viewModel.cellForRow(at: indexPath))
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelectRow(at: indexPath)
     }
 }

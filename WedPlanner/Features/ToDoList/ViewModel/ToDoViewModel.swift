@@ -19,7 +19,7 @@ class ToDoViewModel {
     func populate() {
         do {
             var list = [ListItem]()
-            guard let storedObjItem = UserDefaults.standard.object(forKey: "list") as? Data else {return}
+            guard let storedObjItem = UserDefaults.standard.object(forKey: "list") as? Data else { return }
             let storedItems = try JSONDecoder().decode([ListItem].self, from: storedObjItem)
             storedItems.forEach({ item in
                 if !item.isComplete {
@@ -43,18 +43,32 @@ class ToDoViewModel {
     func didSelectRow(at indexPath: IndexPath) -> Void {
         var item = cellForRow(at: indexPath)
         item.isComplete = !item.isComplete
-        items[indexPath.row] = item
+
+        let storedItems = getStoredItems()
+        var items = storedItems.filter { $0.id != item.id }
+        items.append(item)
         if let encoded = try? JSONEncoder().encode(items) {
             UserDefaults.standard.set(encoded, forKey: "list")
-            refreshData?()
         }
-        items.remove(at: indexPath.row)
         refreshData?()
+        populate()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NewDoneItem"), object: self)
+    }
+
+    func getStoredItems() -> [ListItem] {
+        do {
+            guard let storedObjItem = UserDefaults.standard.object(forKey: "list") as? Data else { return [ListItem]() }
+            return try JSONDecoder().decode([ListItem].self, from: storedObjItem)
+        } catch let err {
+            print(err)
+            return [ListItem]()
+        }
     }
 
     func save(item: ListItem) {
-        items.append(item)
-        if let encoded = try? JSONEncoder().encode(items) {
+        var storedItems = getStoredItems()
+        storedItems.append(item)
+        if let encoded = try? JSONEncoder().encode(storedItems) {
             UserDefaults.standard.set(encoded, forKey: "list")
         }
         refreshData?()
