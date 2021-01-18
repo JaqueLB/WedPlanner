@@ -48,10 +48,6 @@ class AddItemViewController: UIViewController {
 
         view.addSubview(titleTextField)
 
-        view.subviews.forEach({
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        })
-
         NSLayoutConstraint.activate([
             titleTextField.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant: 16),
             titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
