@@ -40,7 +40,7 @@ class DoneViewModel {
         return items.count
     }
 
-    func didSelectRow(at indexPath: IndexPath) -> Void {
+    func markItemUndone(at indexPath: IndexPath) -> Void {
         var item = cellForRow(at: indexPath)
         item.isComplete = !item.isComplete
 

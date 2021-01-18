@@ -61,7 +61,15 @@ class DoneTableViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.didSelectRow(at: indexPath)
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let undoneItem = UIContextualAction(style: .normal, title: "undone") { (contextualAction, view, boolValue) in
+            self.viewModel.markItemUndone(at: indexPath)
+        }
+
+        undoneItem.backgroundColor = .systemBlue
+
+        let swipeActions = UISwipeActionsConfiguration(actions: [undoneItem])
+
+        return swipeActions
     }
 }
