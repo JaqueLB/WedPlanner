@@ -31,7 +31,8 @@ class AddItemViewController: UIViewController {
     }
 
     // MARK: setup UI
-    func setupSaveBarButton(enabled: Bool = false, style: UIBarButtonItem.Style = .plain) {
+    func setupSaveBarButton(enabled: Bool = false, style: UIBarButtonItem.Style = .plain, color: UIColor = .systemGray) {
+        saveBarButton.tintColor = color
         saveBarButton.isEnabled = enabled
         saveBarButton.style = style
     }
@@ -67,7 +68,7 @@ class AddItemViewController: UIViewController {
             setupSaveBarButton()
             return
         }
-        setupSaveBarButton(enabled: true, style: .done)
+        setupSaveBarButton(enabled: true, style: .done, color: .systemTeal)
     }
 
     @objc func cancel() {
